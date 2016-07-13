@@ -41,13 +41,13 @@ public class Day implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeSerializable(this.date);
-        dest.writeTypedList(this.readings);
+        dest.writeSerializable(date);
+        dest.writeTypedList(readings);
     }
 
     protected Day(Parcel in) {
-        this.date = (LocalDate) in.readSerializable();
-        this.readings = in.createTypedArrayList(Item.CREATOR);
+        date = (LocalDate) in.readSerializable();
+        readings = in.createTypedArrayList(Item.CREATOR);
     }
 
     public static final Creator<Day> CREATOR = new Creator<Day>() {

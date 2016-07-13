@@ -29,14 +29,14 @@ public class Main implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeFloat(this.temp);
+        dest.writeFloat(temp);
     }
 
     public Main() {
     }
 
     protected Main(Parcel in) {
-        this.temp = in.readFloat();
+        temp = in.readFloat();
     }
 
     public static final Creator<Main> CREATOR = new Creator<Main>() {

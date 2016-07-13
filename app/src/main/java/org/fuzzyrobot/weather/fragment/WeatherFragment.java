@@ -61,6 +61,7 @@ public class WeatherFragment extends BaseFragment implements WeatherPresenter.We
         new WeatherPresenter().update(this, location, this);
     }
 
+    @Override
     public void setCityName(final String cityName) {
         cityNameTv.setText(cityName);
     }

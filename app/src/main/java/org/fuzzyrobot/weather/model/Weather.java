@@ -24,14 +24,14 @@ public class Weather implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.main);
+        dest.writeString(main);
     }
 
     public Weather() {
     }
 
     protected Weather(Parcel in) {
-        this.main = in.readString();
+        main = in.readString();
     }
 
     public static final Creator<Weather> CREATOR = new Creator<Weather>() {

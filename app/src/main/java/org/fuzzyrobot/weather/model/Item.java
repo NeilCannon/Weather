@@ -65,19 +65,19 @@ public class Item implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.dt);
-        dest.writeParcelable(this.main, flags);
-        dest.writeList(this.weather);
+        dest.writeLong(dt);
+        dest.writeParcelable(main, flags);
+        dest.writeList(weather);
     }
 
     public Item() {
     }
 
     protected Item(Parcel in) {
-        this.dt = in.readLong();
-        this.main = in.readParcelable(Main.class.getClassLoader());
-        this.weather = new ArrayList<Weather>();
-        in.readList(this.weather, Weather.class.getClassLoader());
+        dt = in.readLong();
+        main = in.readParcelable(Main.class.getClassLoader());
+        weather = new ArrayList<Weather>();
+        in.readList(weather, Weather.class.getClassLoader());
     }
 
     public static final Creator<Item> CREATOR = new Creator<Item>() {

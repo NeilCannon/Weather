@@ -19,7 +19,7 @@ import butterknife.InjectView;
  * Created by neil on 13/07/2016.
  */
 public class DayReadingAdapter extends RecyclerView.Adapter<DayReadingAdapter.ViewHolder> {
-    private DayDetailFragment dayDetailFragment;
+    private final DayDetailFragment dayDetailFragment;
     private final Day day;
 
     public DayReadingAdapter(final DayDetailFragment dayDetailFragment, final Day day) {
