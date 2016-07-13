@@ -15,6 +15,10 @@ public class Day implements Parcelable {
     private LocalDate date;
     private List<Item> readings = new ArrayList<>();
 
+    public Day(final LocalDate date) {
+        this.date = date;
+    }
+
     public LocalDate getDate() {
         return date;
     }
@@ -23,17 +27,9 @@ public class Day implements Parcelable {
         return readings;
     }
 
-    public void setDate(final LocalDate date) {
-        this.date = date;
+    public boolean addReading(final Item object) {
+        return readings.add(object);
     }
-
-    @Override
-    public String toString() {
-        return "Day{" +
-                "date=" + date +
-                '}';
-    }
-
 
     public Day() {
     }

@@ -13,28 +13,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.fuzzyrobot.weather.R;
-import org.fuzzyrobot.weather.api.ApiModule;
-import org.fuzzyrobot.weather.api.WeatherResponse;
-import org.fuzzyrobot.weather.log.Log;
 import org.fuzzyrobot.weather.model.Day;
-import org.fuzzyrobot.weather.model.Item;
 import org.fuzzyrobot.weather.presenter.WeatherPresenter;
-import org.joda.time.LocalDate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.InjectView;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class WeatherFragment extends BaseFragment implements WeatherPresenter.WeatherView {
 
+    private static final String LOCATION = "LOCATION";
     @InjectView(R.id.days_pager)
     protected ViewPager daysPager;
 
@@ -52,6 +43,9 @@ public class WeatherFragment extends BaseFragment implements WeatherPresenter.We
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState != null) {
+            location = savedInstanceState.getParcelable(LOCATION);
+        }
         update();
     }
 
@@ -85,5 +79,11 @@ public class WeatherFragment extends BaseFragment implements WeatherPresenter.We
                 return days.size();
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(LOCATION, location);
     }
 }

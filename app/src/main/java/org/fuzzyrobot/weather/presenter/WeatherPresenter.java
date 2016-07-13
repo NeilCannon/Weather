@@ -26,7 +26,6 @@ public class WeatherPresenter {
 
     public interface WeatherView {
         void setCityName(String cityName);
-
         void setDays(List<Day> days);
     }
 
@@ -50,14 +49,12 @@ public class WeatherPresenter {
                             LocalDate date = item.getLocalDate();
 
                             if (lastDate == null || !lastDate.equals(date)) {
-                                day = new Day();
-                                day.setDate(date);
+                                day = new Day(date);
                                 days.add(day);
                             }
-                            day.getReadings().add(item);
+                            day.addReading(item);
                             lastDate = date;
                         }
-                        Log.d(days);
                         weatherView.setDays(days);
 
                     }
