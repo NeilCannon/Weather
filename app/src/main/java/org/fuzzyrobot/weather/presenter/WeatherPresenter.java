@@ -1,12 +1,13 @@
 package org.fuzzyrobot.weather.presenter;
 
 import android.location.Location;
+import android.support.annotation.VisibleForTesting;
 
 import com.trello.rxlifecycle.FragmentLifecycleProvider;
 
 import org.fuzzyrobot.weather.api.ApiModule;
 import org.fuzzyrobot.weather.api.WeatherResponse;
-import org.fuzzyrobot.weather.log.Log;
+import org.fuzzyrobot.weather.api.WeatherService;
 import org.fuzzyrobot.weather.model.Day;
 import org.fuzzyrobot.weather.model.Item;
 import org.joda.time.LocalDate;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
+import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -26,21 +28,22 @@ public class WeatherPresenter {
 
     public interface WeatherView {
         void setCityName(String cityName);
+
         void setDays(List<Day> days);
     }
 
     public void update(final WeatherView weatherView, final Location location, FragmentLifecycleProvider lifecycleProvider) {
-        final Observable<WeatherResponse> weatherResponseObservable = new ApiModule().getService().getForecast(String.valueOf(location.getLatitude()),
+        final Observable<WeatherResponse> weatherResponseObservable = getWeatherService().getForecast(String.valueOf(location.getLatitude()),
                 String.valueOf(location.getLongitude()));
+
         weatherResponseObservable
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(getScheduler())
                 .compose(lifecycleProvider.<WeatherResponse>bindToLifecycle())
                 .subscribe(new Action1<WeatherResponse>() {
                     @Override
                     public void call(final WeatherResponse weatherResponse) {
 
-                        Log.d(weatherResponse.toString());
                         weatherView.setCityName(weatherResponse.getCity().getName());
                         LocalDate lastDate = null;
                         final List<Day> days = new ArrayList<>();
@@ -61,5 +64,15 @@ public class WeatherPresenter {
                 });
 
 
+    }
+
+    @VisibleForTesting
+    protected WeatherService getWeatherService() {
+        return new ApiModule().getWeatherService();
+    }
+
+    @VisibleForTesting
+    protected Scheduler getScheduler() {
+        return AndroidSchedulers.mainThread();
     }
 }

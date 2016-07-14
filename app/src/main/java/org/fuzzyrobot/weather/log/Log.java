@@ -6,6 +6,9 @@ import org.fuzzyrobot.weather.BuildConfig;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Logging that adds class & method name automatically, with no need for a TAG
+ */
 public class Log {
     public static final boolean LOG_ENABLED = BuildConfig.DEBUG;
 

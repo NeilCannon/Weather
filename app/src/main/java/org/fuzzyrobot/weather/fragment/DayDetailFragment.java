@@ -25,8 +25,12 @@ import butterknife.InjectView;
 public class DayDetailFragment extends BaseFragment {
 
     public static final String ARG_DAY = "DAY";
+
     @InjectView(R.id.readings_list)
     protected RecyclerView recyclerView;
+
+    @InjectView(R.id.date)
+    protected TextView dateText;
 
     public static DayDetailFragment create(Day day) {
         DayDetailFragment fragment = new DayDetailFragment();
@@ -45,7 +49,6 @@ public class DayDetailFragment extends BaseFragment {
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView dateText = (TextView) view.findViewById(R.id.date);
         final Day day = getArguments().getParcelable(ARG_DAY);
         dateText.setText(day.getDate().toString(DateTimeFormat.forPattern("E")));
 

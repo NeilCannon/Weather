@@ -16,7 +16,7 @@ public class ApiModule {
 
     private WeatherService service;
 
-    public WeatherService getService() {
+    public WeatherService getWeatherService() {
         if (service == null) {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(BuildConfig.DEBUG ? Level.BODY : Level.NONE);
